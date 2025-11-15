@@ -65,17 +65,32 @@ go build -o go-zero-mcp main.go
 
 Add this configuration to your Claude Desktop MCP settings:
 
-### macOS/Linux
-Edit `~/.config/claude/mcp_settings.json`:
+### macOS
+Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "go-zero-mcp": {
-      "command": "/path/to/your/go-zero-mcp",
-      "args": [],
+    "mcp-zero": {
+      "command": "/path/to/your/mcp-zero",
       "env": {
-        "PATH": "/usr/local/bin:/usr/bin:/bin"
+        "GOCTL_PATH": "/Users/yourname/go/bin/goctl"
+      }
+    }
+  }
+}
+```
+
+### Linux
+Edit `~/.config/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-zero": {
+      "command": "/path/to/your/mcp-zero",
+      "env": {
+        "GOCTL_PATH": "/usr/local/bin/goctl"
       }
     }
   }
@@ -83,16 +98,15 @@ Edit `~/.config/claude/mcp_settings.json`:
 ```
 
 ### Windows
-Edit `%APPDATA%/Claude/mcp_settings.json`:
+Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "go-zero-mcp": {
-      "command": "C:\\path\\to\\your\\go-zero-mcp.exe",
-      "args": [],
+    "mcp-zero": {
+      "command": "C:\\path\\to\\your\\mcp-zero.exe",
       "env": {
-        "PATH": "C:\\Go\\bin;C:\\Program Files\\Go\\bin"
+        "GOCTL_PATH": "C:\\Go\\bin\\goctl.exe"
       }
     }
   }

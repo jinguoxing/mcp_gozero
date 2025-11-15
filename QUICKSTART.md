@@ -118,13 +118,16 @@ curl http://localhost:8080/ping
 
 ### Adding an Endpoint
 
-Ask Claude:
+To add new endpoints, you'll need to:
+
+1. Edit the `.api` file manually to add your endpoint
+2. Regenerate code from the updated spec:
 
 ```
-Add a new endpoint GET /api/user/:id to my userservice
+Generate code from the userservice.api file in ./userservice
 ```
 
-mcp-zero will update the API specification and regenerate code.
+Claude will use the `generate_api_from_spec` tool to regenerate the service with your new endpoints.
 
 ### Creating an RPC Service
 
