@@ -30,16 +30,18 @@ goctl --version
 
 ### 2. Install mcp-zero
 
-```bash
-go install github.com/zeromicro/mcp-zero@latest
-```
-
-Or build from source:
+Build from source:
 
 ```bash
 git clone https://github.com/zeromicro/mcp-zero.git
 cd mcp-zero
 go build -o mcp-zero
+```
+
+After the project is published, you'll be able to install via:
+
+```bash
+go install github.com/zeromicro/mcp-zero@latest
 ```
 
 ### 3. Configure Claude Desktop
@@ -86,18 +88,18 @@ Claude will use mcp-zero to:
 Example response:
 
 ```
-✅ API service 'userservice' created successfully!
+Successfully created api service 'userservice'
 
-Location: /your/current/directory/userservice
-Port: 8080
-Entry point: userservice.go
+Output directory: /your/current/directory/userservice
+
+Additional Information:
+  port: 8080
+  style: go_zero
 
 Next steps:
-1. cd userservice
-2. go run userservice.go
-3. Test: curl http://localhost:8080/ping
-
-Service is ready to run!
+  1. cd /your/current/directory/userservice
+  2. go mod tidy
+  3. go run .
 ```
 
 ### Running the Service
@@ -330,7 +332,6 @@ Generate documentation for my project structure
 ## Environment Variables
 
 - `GOCTL_PATH`: Override goctl executable location
-- `MCP_ZERO_DEBUG`: Enable debug logging (development only)
 
 ## Next Steps
 
