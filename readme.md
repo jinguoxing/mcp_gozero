@@ -401,4 +401,6 @@ Feel free to extend this tool with additional go-zero features such as:
 
 ## License
 
-This tool is provided as-is for educational and development purposes.
+MIT License - see [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 go-zero team

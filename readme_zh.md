@@ -472,6 +472,12 @@ go test -cover ./...
 
 如有问题或建议，请访问 [GitHub Issues](https://github.com/zeromicro/mcp-zero/issues)。
 
+## 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件。
+
+Copyright (c) 2025 go-zero team
+
 ---
 
 **开始使用 mcp-zero，让 AI 助力你的 go-zero 开发！** 🚀
