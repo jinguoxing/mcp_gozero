@@ -19,7 +19,7 @@ type AnalyzeProjectParams struct {
 	ProjectPath string `json:"project_path"`
 }
 
-// Cache for project analysis results
+// Cache for project analysis results with automatic cleanup
 type analysisCache struct {
 	mu      sync.RWMutex
 	entries map[string]*cacheEntry
@@ -28,13 +28,30 @@ type analysisCache struct {
 type cacheEntry struct {
 	analysis  *analyzer.ProjectAnalysis
 	timestamp time.Time
+	hits      int // Track cache hits for optimization metrics
 }
 
 var cache = &analysisCache{
 	entries: make(map[string]*cacheEntry),
 }
 
-const cacheTTL = 5 * time.Minute
+const (
+	cacheTTL             = 5 * time.Minute
+	cacheCleanupInterval = 10 * time.Minute
+	maxCacheEntries      = 100 // Prevent unbounded memory growth
+)
+
+func init() {
+	// Start background cache cleanup goroutine
+	go func() {
+		ticker := time.NewTicker(cacheCleanupInterval)
+		defer ticker.Stop()
+
+		for range ticker.C {
+			cleanupExpiredEntries()
+		}
+	}()
+}
 
 func AnalyzeProject(ctx context.Context, req *mcp.CallToolRequest, params AnalyzeProjectParams) (*mcp.CallToolResult, any, error) {
 	projectPath := params.ProjectPath
@@ -69,8 +86,8 @@ func AnalyzeProject(ctx context.Context, req *mcp.CallToolRequest, params Analyz
 }
 
 func getCachedAnalysis(projectPath string) *analyzer.ProjectAnalysis {
-	cache.mu.RLock()
-	defer cache.mu.RUnlock()
+	cache.mu.Lock() // Use write lock to update hits counter
+	defer cache.mu.Unlock()
 
 	entry, exists := cache.entries[projectPath]
 	if !exists {
@@ -79,8 +96,13 @@ func getCachedAnalysis(projectPath string) *analyzer.ProjectAnalysis {
 
 	// Check if cache is still valid
 	if time.Since(entry.timestamp) > cacheTTL {
+		// Remove expired entry immediately
+		delete(cache.entries, projectPath)
 		return nil
 	}
+
+	// Increment hit counter for metrics
+	entry.hits++
 
 	return entry.analysis
 }
@@ -89,10 +111,85 @@ func cacheAnalysis(projectPath string, analysis *analyzer.ProjectAnalysis) {
 	cache.mu.Lock()
 	defer cache.mu.Unlock()
 
+	// Enforce max cache size - evict least recently used entries
+	if len(cache.entries) >= maxCacheEntries {
+		evictOldestEntry()
+	}
+
 	cache.entries[projectPath] = &cacheEntry{
 		analysis:  analysis,
 		timestamp: time.Now(),
+		hits:      0,
 	}
+}
+
+// cleanupExpiredEntries removes stale cache entries in background
+func cleanupExpiredEntries() {
+	cache.mu.Lock()
+	defer cache.mu.Unlock()
+
+	now := time.Now()
+	for path, entry := range cache.entries {
+		if now.Sub(entry.timestamp) > cacheTTL {
+			delete(cache.entries, path)
+		}
+	}
+}
+
+// evictOldestEntry removes the oldest or least used cache entry
+// Must be called with cache.mu locked
+func evictOldestEntry() {
+	if len(cache.entries) == 0 {
+		return
+	}
+
+	var oldestPath string
+	var oldestTime time.Time
+	var minHits = -1
+
+	// Find entry with lowest hits, or oldest if tied
+	for path, entry := range cache.entries {
+		if minHits == -1 || entry.hits < minHits ||
+			(entry.hits == minHits && (oldestTime.IsZero() || entry.timestamp.Before(oldestTime))) {
+			oldestPath = path
+			oldestTime = entry.timestamp
+			minHits = entry.hits
+		}
+	}
+
+	if oldestPath != "" {
+		delete(cache.entries, oldestPath)
+	}
+}
+
+// GetCacheStats returns cache statistics for monitoring
+func GetCacheStats() map[string]interface{} {
+	cache.mu.RLock()
+	defer cache.mu.RUnlock()
+
+	totalHits := 0
+	oldestEntry := time.Now()
+
+	for _, entry := range cache.entries {
+		totalHits += entry.hits
+		if entry.timestamp.Before(oldestEntry) {
+			oldestEntry = entry.timestamp
+		}
+	}
+
+	return map[string]interface{}{
+		"total_entries": len(cache.entries),
+		"total_hits":    totalHits,
+		"oldest_entry":  oldestEntry,
+		"max_capacity":  maxCacheEntries,
+	}
+}
+
+// ClearCache removes all cached entries (useful for testing)
+func ClearCache() {
+	cache.mu.Lock()
+	defer cache.mu.Unlock()
+	cache.entries = make(map[string]*cacheEntry)
 }
 
 func formatAnalysisResult(analysis *analyzer.ProjectAnalysis, fromCache bool) (*mcp.CallToolResult, any, error) {

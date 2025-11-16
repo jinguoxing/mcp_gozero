@@ -4,9 +4,10 @@ A Model Context Protocol (MCP) tool that helps developers quickly scaffold and g
 
 ## Quick Start
 
-**New to mcp-zero?** Check out our [Quick Start Guide](QUICKSTART.md) for a step-by-step tutorial on getting started!
+**New to mcp-zero?** Check out our [Quick Start Guide](quickstart.md) for a step-by-step tutorial on getting started!
 
 The quickstart covers:
+
 - Installation and configuration
 - Creating your first API service
 - Common use cases and workflows
@@ -15,6 +16,7 @@ The quickstart covers:
 ## Features
 
 ### Core Service Generation
+
 - **Create API Services**: Generate new REST API services with customizable ports and styles
 - **Create RPC Services**: Generate gRPC services from protobuf definitions
 - **Generate API Code**: Convert API specification files to Go code
@@ -22,6 +24,7 @@ The quickstart covers:
 - **Create API Specs**: Generate sample API specification files
 
 ### Advanced Features
+
 - **Analyze Projects**: Analyze existing go-zero projects to understand structure and dependencies
 - **Manage Configuration**: Generate configuration files with proper structure validation
 - **Generate Templates**: Create middleware, error handlers, and deployment templates
@@ -31,41 +34,48 @@ The quickstart covers:
 ## Prerequisites
 
 1. **Go** (1.19 or later)
+
 2. **go-zero CLI (goctl)**: Install with `go install github.com/zeromicro/go-zero/tools/goctl@latest`
+
 3. **Claude Desktop** (or other MCP-compatible client)
 
-For detailed installation instructions, see the [Quick Start Guide](QUICKSTART.md).
+For detailed installation instructions, see the [Quick Start Guide](quickstart.md).
 
 ## Installation
 
 1. Create a new directory for your MCP tool:
-```bash
-mkdir go-zero-mcp && cd go-zero-mcp
-```
+
+   ```bash
+   mkdir go-zero-mcp && cd go-zero-mcp
+   ```
 
 2. Initialize Go module:
-```bash
-go mod init go-zero-mcp
-```
+
+   ```bash
+   go mod init go-zero-mcp
+   ```
 
 3. Install dependencies:
-```bash
-go get github.com/mark3labs/mcp-go/mcp
-go get github.com/mark3labs/mcp-go/server
-```
+
+   ```bash
+   go get github.com/modelcontextprotocol/go-sdk
+   go get gopkg.in/yaml.v3
+   ```
 
 4. Save the main tool code as `main.go`
 
 5. Build the tool:
-```bash
-go build -o go-zero-mcp main.go
-```
+
+   ```bash
+   go build -o go-zero-mcp main.go
+   ```
 
 ## Configuration for Claude Desktop
 
 Add this configuration to your Claude Desktop MCP settings:
 
 ### macOS
+
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
@@ -82,6 +92,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 ```
 
 ### Linux
+
 Edit `~/.config/Claude/claude_desktop_config.json`:
 
 ```json
@@ -98,6 +109,7 @@ Edit `~/.config/Claude/claude_desktop_config.json`:
 ```
 
 ### Windows
+
 Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 
 ```json
@@ -116,82 +128,102 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 ## Available Tools
 
 ### 1. create_api_service
+
 Creates a new go-zero API service.
 
 **Parameters:**
+
 - `service_name` (required): Name of the API service
 - `port` (optional): Port number (default: 8888)
 - `style` (optional): Code style - "go_zero" or "gozero" (default: "go_zero")
 - `output_dir` (optional): Output directory (default: current directory)
 
 ### 2. create_rpc_service
+
 Creates a new go-zero RPC service from protobuf definition.
 
 **Parameters:**
+
 - `service_name` (required): Name of the RPC service
 - `proto_content` (required): Protobuf definition content
 - `output_dir` (optional): Output directory (default: current directory)
 
 ### 3. generate_api_from_spec
-Generates go-zero API code from API specification file.
+
+Generates go-zero API code from an API specification file.
 
 **Parameters:**
+
 - `api_file` (required): Path to the .api specification file
 - `output_dir` (optional): Output directory (default: current directory)
 - `style` (optional): Code style - "go_zero" or "gozero" (default: "go_zero")
 
 ### 4. generate_model
-Generates go-zero model code from database schema or DDL.
+
+Generates database model code from database schema.
 
 **Parameters:**
+
 - `source_type` (required): Source type - "mysql", "postgresql", "mongo", or "ddl"
 - `source` (required): Database connection string or DDL file path
 - `table` (optional): Specific table name (for database sources)
 - `output_dir` (optional): Output directory (default: "./model")
 
 ### 5. create_api_spec
+
 Creates a sample API specification file.
 
 **Parameters:**
+
 - `service_name` (required): Name of the API service
 - `endpoints` (required): Array of endpoint objects with method, path, and handler
 - `output_file` (optional): Output file path (default: service_name.api)
 
 ### 6. analyze_project
+
 Analyzes an existing go-zero project structure and dependencies.
 
 **Parameters:**
+
 - `project_dir` (required): Path to the project directory
 - `analysis_type` (optional): Type of analysis - "api", "rpc", "model", or "full" (default: "full")
 
 ### 7. generate_config
+
 Generates configuration files for go-zero services.
 
 **Parameters:**
+
 - `service_name` (required): Name of the service
 - `service_type` (required): Service type - "api" or "rpc"
 - `config_type` (optional): Configuration type - "dev", "test", or "prod" (default: "dev")
 - `output_file` (optional): Output file path (default: etc/{service_name}.yaml)
 
 ### 8. generate_template
+
 Generates common code templates for go-zero services.
 
 **Parameters:**
+
 - `template_type` (required): Template type - "middleware", "error_handler", "dockerfile", "docker_compose", or "kubernetes"
 - `service_name` (required): Name of the service
 - `output_path` (optional): Output file path (uses defaults based on template type)
 
 ### 9. query_docs
+
 Queries go-zero documentation and migration guides.
 
 **Parameters:**
+
 - `query` (required): Natural language query about go-zero concepts or migration
 - `doc_type` (optional): Documentation type - "concept", "migration", or "both" (default: "both")
 
 ### 10. validate_input
+
 Validates API specs, protobuf definitions, or configuration files.
 
 **Parameters:**
+
 - `input_type` (required): Input type - "api_spec", "proto", or "config"
 - `content` (required): Content to validate
 - `strict` (optional): Enable strict validation mode (default: false)
@@ -199,12 +231,14 @@ Validates API specs, protobuf definitions, or configuration files.
 ## Usage Examples
 
 ### Creating a New API Service
-```
+
+```text
 Please create a new go-zero API service called "user-service" on port 8080
 ```
 
 ### Creating an RPC Service
-```
+
+```text
 Create a new go-zero RPC service called "auth-service" with this protobuf definition:
 
 syntax = "proto3";
@@ -238,12 +272,14 @@ message LogoutResponse {
 ```
 
 ### Generating Models from Database
-```
+
+```text
 Generate go-zero models from my MySQL database with connection string "user:password@tcp(localhost:3306)/mydb"
 ```
 
 ### Creating an API Specification
-```
+
+```text
 Create an API specification for a "blog-service" with these endpoints:
 - GET /api/posts (handler: GetPostsHandler)
 - POST /api/posts (handler: CreatePostHandler)
@@ -253,31 +289,36 @@ Create an API specification for a "blog-service" with these endpoints:
 ```
 
 ### Analyzing a Project
-```
+
+```text
 Analyze my go-zero project in /path/to/myproject to understand its structure
 ```
 
 ### Generating Configuration
-```
+
+```text
 Generate a production configuration file for my "order-service" API service
 ```
 
 ### Generating Templates
-```
+
+```text
 Generate a middleware template for my "auth-service"
 ```
 
 ### Querying Documentation
-```
+
+```text
 How do I implement JWT authentication in go-zero?
 ```
 
-```
+```text
 How do I migrate from Express.js to go-zero?
 ```
 
 ### Validating Input
-```
+
+```text
 Validate this API spec file at /path/to/service.api with strict mode enabled
 ```
 
@@ -285,7 +326,7 @@ Validate this API spec file at /path/to/service.api with strict mode enabled
 
 After building, your MCP server will have the following structure:
 
-```
+```text
 mcp-zero/
 ├── main.go                    # Entry point and tool registration
 ├── tools/                     # Tool implementations
@@ -343,6 +384,7 @@ The MCP server is built with:
 ### Debug Mode
 
 To enable debug logging, set the environment variable:
+
 ```bash
 export MCP_DEBUG=1
 ```
@@ -350,6 +392,7 @@ export MCP_DEBUG=1
 ## Contributing
 
 Feel free to extend this tool with additional go-zero features such as:
+
 - Dockerfile generation
 - Kubernetes manifest generation
 - Docker Compose file creation

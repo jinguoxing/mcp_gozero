@@ -300,13 +300,13 @@ Based on plan.md structure:
 - [X] T138 [P] Create README.md with installation and usage instructions
 - [X] T139 [P] Create CONTRIBUTING.md with development guidelines
 - [X] T140 [P] Add unit tests for validation package in tests/unit/validation_test.go
-- [ ] T141 [P] Add unit tests for goctl discovery in tests/unit/discovery_test.go
+- [X] T141 [P] Add unit tests for goctl discovery in tests/unit/discovery_test.go
 - [X] T142 [P] Add unit tests for fixer package in tests/unit/fixer_test.go
 - [X] T143 [P] Add unit tests for analyzer package in tests/unit/analyzer_test.go
 - [X] T144 Validate all tools against quickstart.md scenarios
 - [X] T145 Add error recovery examples to documentation
 - [X] T146 Security audit of credential handling
-- [ ] T147 Performance optimization for project analysis caching
+- [X] T147 Performance optimization for project analysis caching
 - [X] T148 Add CI/CD pipeline configuration
 - [X] T149 Create release documentation
 

@@ -46,6 +46,8 @@ A developer has written an API specification document and wants to generate the 
 1. **Given** an existing API specification document, **When** developer requests "generate code from this API spec", **Then** complete handler structure, logic stubs, and type definitions are generated with correct dependencies and run successfully
 2. **Given** a specification with multiple endpoints, **When** code generation is requested, **Then** all handlers are generated with proper routing and the project structure is maintained
 3. **Given** invalid specification syntax, **When** generation is attempted, **Then** clear error messages indicate what's wrong in the specification
+4. **Given** an existing project with go_zero style files, **When** code is regenerated, **Then** system auto-detects existing style, prevents file naming conflicts, and maintains consistent naming convention throughout
+5. **Given** a project with both service_context.go and servicecontext.go files, **When** system detects style conflict, **Then** system reports clear error identifying conflicting files and suggests resolution
 
 ---
 
@@ -172,6 +174,10 @@ A developer needs to understand framework concepts, find migration guidance, or 
 - What happens when creating multiple services in the same workspace? System should organize services in separate subdirectories with appropriate naming and ensure no conflicts between service configurations (e.g., port numbers).
 - What happens when generation fails after partial completion? System should preserve successfully generated files, clearly report which step failed, and allow user to provide corrected inputs to continue from the failure point without regenerating successful parts.
 - What happens with database credentials during model generation? System should support both connection strings (for quick development) and credential files (for secure production use), and should never log or persist credentials in generated code or tool output.
+- What happens when service name contains reserved Go keywords? System should detect reserved keywords (func, type, struct, interface, etc.) and reject them with clear error message suggesting alternatives.
+- What happens when regenerating code with different style parameter? System should detect existing style, clean up conflicting files before generation, and maintain consistency across the project.
+- What happens when file system permissions deny write access? System should validate write permissions before generation and provide clear error messages with remediation steps.
+- What happens during concurrent tool invocations on the same workspace? System behavior for concurrent operations should be documented and handled safely to prevent corruption.
 
 ## Requirements *(mandatory)*
 
@@ -184,17 +190,17 @@ A developer needs to understand framework concepts, find migration guidance, or 
 - **FR-004**: System MUST generate service code from API specification documents
 - **FR-005**: System MUST create new microservice RPC projects with interface definitions
 - **FR-006**: System MUST generate data access layer code from database schemas or table definitions, accepting credentials via connection strings or secure credential files
-- **FR-007**: System MUST create properly formatted API specification documents from endpoint descriptions
+- **FR-007**: System MUST create properly formatted API specification documents from endpoint descriptions following go-zero .api syntax (see go-zero documentation for syntax reference)
 - **FR-008**: System MUST ensure generated projects have correct module references and dependencies
 - **FR-009**: System MUST configure generated services with user-specified port numbers
-- **FR-010**: System MUST ensure generated projects are properly initialized with dependency management
+- **FR-010**: System MUST ensure generated projects are properly initialized including: go mod init executed, go mod tidy run, all imports resolved, valid go.mod and go.sum files present
 - **FR-011**: System MUST resolve and download all required dependencies automatically
-- **FR-012**: System MUST verify generated projects are complete and ready to run before reporting success
+- **FR-012**: System MUST verify generated projects are complete and ready to run before reporting success by checking: project compiles without errors (go build succeeds), all required files exist, configuration is valid, no missing dependencies
 - **FR-013**: System MUST provide clear error messages with installation guidance when required tools are missing
 - **FR-014**: System MUST provide clear error messages explaining naming requirements when invalid names are provided
 - **FR-015**: System MUST translate all technical errors into user-friendly messages with actionable guidance
-- **FR-016**: System MUST support configurable naming conventions for generated code
-- **FR-017**: System MUST create production-ready project structure with all necessary configuration and scaffolding
+- **FR-016**: System MUST support configurable naming conventions for generated code (go_zero style: snake_case files like service_context.go; gozero style: flat files like servicecontext.go)
+- **FR-017**: System MUST create production-ready project structure including: go.mod file, main entry point, internal/ directory with handler/logic/svc subdirectories, etc/ directory for configuration, proper imports, and all necessary scaffolding
 - **FR-018**: System MUST analyze existing service projects and extract structural information including endpoints, service definitions, and dependencies
 - **FR-019**: System MUST parse and understand API specification documents and interface definition files
 - **FR-020**: System MUST validate service configuration files against defined schema while allowing custom fields, and identify potential issues or inconsistencies
@@ -207,6 +213,12 @@ A developer needs to understand framework concepts, find migration guidance, or 
 - **FR-027**: System MUST accept natural language requests and translate them into appropriate code generation actions
 - **FR-028**: System MUST preserve partial generation state when errors occur and allow users to correct inputs and retry without losing progress
 - **FR-029**: System MUST provide clear indication of which generation steps succeeded and which failed during partial failures
+- **FR-030**: System MUST detect and prevent style naming conflicts (go_zero vs gozero) during code generation by auto-detecting existing project style
+- **FR-031**: System MUST validate and sanitize all user-provided input (service names, paths, natural language requests) to prevent code injection attacks
+- **FR-032**: System MUST validate all file paths to prevent path traversal attacks, ensuring paths stay within designated workspace boundaries
+- **FR-033**: System MUST execute external commands (goctl, go) with absolute paths and validated arguments to prevent command injection
+- **FR-034**: System MUST NOT log, persist, or expose sensitive information including database credentials, API keys, or connection strings in any output or error messages
+- **FR-035**: System MUST validate generated code for common security issues including SQL injection vulnerabilities, XSS risks, and insecure configurations
 
 ### Key Entities
 
@@ -224,13 +236,16 @@ A developer needs to understand framework concepts, find migration guidance, or 
 
 - **SC-001**: Developers can create a new API service and have it responding to requests in under 2 minutes from initial request
 - **SC-002**: 100% of generated services are immediately runnable without requiring manual fixes or modifications
-- **SC-003**: The tool successfully locates required code generation utilities in 95% of standard installation scenarios without user configuration
+- **SC-003**: The tool successfully locates required code generation utilities in 95% of standard installation scenarios (brew install, go install, custom GOCTL_PATH, standard PATH locations like ~/go/bin, /usr/local/bin) without user configuration
 - **SC-004**: Service name validation catches 100% of invalid names before attempting project creation
 - **SC-005**: Developers can generate complete service code from API specifications in under 30 seconds
-- **SC-006**: All generated projects follow framework best practices and conventions automatically
+- **SC-006**: All generated projects follow framework best practices automatically including: ServiceContext pattern for dependency injection, proper REST conventions, idiomatic Go error handling, appropriate directory structure, proper configuration management
 - **SC-007**: Error messages provide actionable solutions in 100% of common failure scenarios (missing tools, invalid names, missing dependencies)
 - **SC-008**: 90% of developers can use the tool successfully without consulting documentation (through intuitive interaction and clear error messages)
 - **SC-009**: Developers can understand an existing project's structure and endpoints in under 1 minute through project analysis
 - **SC-010**: Configuration validation identifies 95% of common configuration issues before deployment
-- **SC-011**: Generated templates integrate with existing projects without requiring manual modifications in 90% of cases
+- **SC-011**: Generated templates integrate with existing projects without requiring manual modifications in 90% of cases (no import conflicts, type compatibility, successful compilation)
 - **SC-012**: Framework documentation queries return relevant, accurate responses in under 5 seconds
+- **SC-013**: Style naming conflicts are detected and prevented in 100% of code generation and regeneration scenarios
+- **SC-014**: All user-provided inputs (paths, service names, natural language requests) are validated and sanitized before processing to prevent security vulnerabilities
+- **SC-015**: Database credentials and sensitive configuration values are never logged, persisted in generated code, or exposed in error messages
