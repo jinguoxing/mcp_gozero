@@ -2,17 +2,35 @@ package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/zeromicro/mcp-zero/tools"
 )
 
+const (
+	appVersion = "1.0.0"
+	appName    = "mcp-zero"
+)
+
 func main() {
+	// Define command line flags
+	version := flag.Bool("version", false, "Print version information")
+	flag.Parse()
+
+	// Handle version flag
+	if *version {
+		fmt.Printf("%s version %s\n", appName, appVersion)
+		os.Exit(0)
+	}
+
 	// Create MCP server
 	server := mcp.NewServer(&mcp.Implementation{
-		Name:    "mcp-zero",
-		Version: "1.0.0",
+		Name:    appName,
+		Version: appVersion,
 	}, nil)
 
 	// Register create_api_service tool (T034 - User Story 1)
