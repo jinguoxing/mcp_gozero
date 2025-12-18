@@ -28,7 +28,7 @@ This project follows the [Go Community Code of Conduct](https://go.dev/conduct).
    ```
 3. **Add upstream remote**:
    ```bash
-   git remote add upstream https://github.com/zeromicro/mcp-zero.git
+   git remote add upstream https://github.com/jinguoxing/mcp-gozero.git
    ```
 4. **Create a feature branch**:
    ```bash
@@ -378,8 +378,8 @@ defer metrics.RecordRequest("create_api_service", time.Since(start), err == nil)
 package mytool
 
 import (
-    "github.com/zeromicro/mcp-zero/internal/validation"
-    "github.com/zeromicro/mcp-zero/internal/responses"
+    "github.com/jinguoxing/mcp-gozero/internal/validation"
+    "github.com/jinguoxing/mcp-gozero/internal/responses"
 )
 
 // MyTool implements a sample MCP tool

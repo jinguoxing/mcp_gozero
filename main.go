@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/jingupxing/mcp-gozero/tools"
+	"github.com/jinguoxing/mcp-gozero/tools"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 

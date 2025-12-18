@@ -33,15 +33,15 @@ goctl --version
 Build from source:
 
 ```bash
-git clone https://github.com/zeromicro/mcp-zero.git
-cd mcp-zero
-go build -o mcp-zero
+git clone https://github.com/jinguoxing/mcp-gozero.git
+cd mcp-gozero
+go build -o mcp-gozero
 ```
 
 After the project is published, you'll be able to install via:
 
 ```bash
-go install github.com/zeromicro/mcp-zero@latest
+go install github.com/jinguoxing/mcp-gozero@latest
 ```
 
 ### 3. Configure Claude Desktop
@@ -52,7 +52,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 {
   "mcpServers": {
     "go-zero": {
-      "command": "/Users/yourname/go/bin/mcp-zero",
+      "command": "/Users/yourname/go/bin/mcp-gozero",
       "env": {
         "GOCTL_PATH": "/Users/yourname/go/bin/goctl"
       }
@@ -390,17 +390,4 @@ Generate documentation for my project structure
 
 - `GOCTL_PATH`: Override goctl executable location
 
-## Next Steps
-
-- Read the [full documentation](https://github.com/zeromicro/mcp-zero)
-- Explore [go-zero documentation](https://go-zero.dev/)
-- Join the [go-zero community](https://github.com/zeromicro/go-zero/discussions)
-
-## Support
-
-- GitHub Issues: [github.com/zeromicro/mcp-zero/issues](https://github.com/zeromicro/mcp-zero/issues)
-- go-zero Discord: [discord.gg/go-zero](https://discord.gg/go-zero)
-
----
-
-**Happy coding with mcp-zero! 🚀**
+**Happy coding with mcp-gozero! 🚀**
