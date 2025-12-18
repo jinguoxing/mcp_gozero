@@ -1,4 +1,4 @@
-module github.com/zeromicro/mcp-zero
+module github.com/jinguoxing/mcp-gozero
 
 go 1.23.0
 

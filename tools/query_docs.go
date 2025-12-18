@@ -7,8 +7,8 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
-	"github.com/zeromicro/mcp-zero/internal/docs"
-	"github.com/zeromicro/mcp-zero/internal/responses"
+	"github.com/jinguoxing/mcp-gozero/internal/docs"
+	"github.com/jinguoxing/mcp-gozero/internal/responses"
 )
 
 type QueryDocsParams struct {

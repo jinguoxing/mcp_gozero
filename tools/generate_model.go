@@ -7,10 +7,10 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
-	"github.com/zeromicro/mcp-zero/internal/fixer"
-	"github.com/zeromicro/mcp-zero/internal/goctl"
-	"github.com/zeromicro/mcp-zero/internal/responses"
-	"github.com/zeromicro/mcp-zero/internal/security"
+	"github.com/jinguoxing/mcp-gozero/internal/fixer"
+	"github.com/jinguoxing/mcp-gozero/internal/goctl"
+	"github.com/jinguoxing/mcp-gozero/internal/responses"
+	"github.com/jinguoxing/mcp-gozero/internal/security"
 )
 
 type GenerateModelParams struct {

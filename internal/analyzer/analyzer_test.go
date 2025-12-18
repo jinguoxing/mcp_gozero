@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/zeromicro/mcp-zero/internal/analyzer"
+	"github.com/jinguoxing/mcp-gozero/internal/analyzer"
 )
 
 func TestScanProjectValidProject(t *testing.T) {

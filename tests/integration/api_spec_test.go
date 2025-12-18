@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/zeromicro/mcp-zero/tools"
+	"github.com/jinguoxing/mcp-gozero/tools"
 )
 
 func TestCreateAPISpec(t *testing.T) {

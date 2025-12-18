@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/zeromicro/mcp-zero/tools"
+	"github.com/jinguoxing/mcp-gozero/tools"
 )
 
 func TestGenerateModelValidation(t *testing.T) {

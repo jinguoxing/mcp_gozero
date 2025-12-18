@@ -7,13 +7,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/jingupxing/mcp-gozero/tools"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/zeromicro/mcp-zero/tools"
 )
 
 const (
 	appVersion = "1.0.0"
-	appName    = "mcp-zero"
+	appName    = "mcp-gozero"
 )
 
 func main() {

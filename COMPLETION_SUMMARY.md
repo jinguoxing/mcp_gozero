@@ -376,11 +376,7 @@ The tool is ready for release v1.0.0.
 
 ---
 
-## Contact
 
-**Repository**: https://github.com/zeromicro/mcp-zero
-**Issues**: https://github.com/zeromicro/mcp-zero/issues
-**Discussions**: https://github.com/zeromicro/mcp-zero/discussions
 
 ---
 

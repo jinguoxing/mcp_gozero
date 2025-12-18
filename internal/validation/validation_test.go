@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/zeromicro/mcp-zero/internal/validation"
+	"github.com/jinguoxing/mcp-gozero/internal/validation"
 )
 
 func TestValidateServiceName(t *testing.T) {

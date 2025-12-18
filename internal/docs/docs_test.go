@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/jinguoxing/mcp-gozero/tools"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/zeromicro/mcp-zero/tools"
 )
 
 func TestQueryDocs(t *testing.T) {

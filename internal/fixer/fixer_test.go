@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/zeromicro/mcp-zero/internal/fixer"
+	"github.com/jinguoxing/mcp-gozero/internal/fixer"
 )
 
 func TestFixImportsInFile(t *testing.T) {

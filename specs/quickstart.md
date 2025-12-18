@@ -28,12 +28,12 @@ Verify installation:
 goctl --version
 ```
 
-### 2. Install mcp-zero
+### 2. Install mcp-gozero
 
 Build from source:
 
 ```bash
-git clone https://github.com/zeromicro/mcp-zero.git
+git clone https://github.com/jinguoxing/mcp-gozero.git
 cd mcp-zero
 go build -o mcp-zero
 ```
@@ -41,7 +41,7 @@ go build -o mcp-zero
 After the project is published, you'll be able to install via:
 
 ```bash
-go install github.com/zeromicro/mcp-zero@latest
+go install github.com/jinguoxing/mcp-gozero@latest
 ```
 
 ### 3. Configure Claude Desktop
@@ -338,13 +338,13 @@ Generate documentation for my project structure
 
 ## Next Steps
 
-- Read the [full documentation](https://github.com/zeromicro/mcp-zero)
+- Read the [full documentation](https://github.com/jinguoxing/mcp-gozero)
 - Explore [go-zero documentation](https://go-zero.dev/)
 - Join the [go-zero community](https://github.com/zeromicro/go-zero/discussions)
 
 ## Support
 
-- GitHub Issues: [github.com/zeromicro/mcp-zero/issues](https://github.com/zeromicro/mcp-zero/issues)
+- GitHub Issues: [github.com/jinguoxing/mcp-gozero/issues](https://github.com/jinguoxing/mcp-gozero/issues)
 - go-zero Discord: [discord.gg/go-zero](https://discord.gg/go-zero)
 
 ---

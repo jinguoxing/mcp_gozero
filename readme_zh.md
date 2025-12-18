@@ -4,7 +4,7 @@
 
 ## 快速开始
 
-**第一次使用 mcp-zero？** 查看我们的[快速入门指南](QUICKSTART.md)获取详细的分步教程！
+**第一次使用 mcp-gozero？** 查看我们的[快速入门指南](QUICKSTART.md)获取详细的分步教程！
 
 快速入门涵盖：
 
@@ -467,10 +467,8 @@ go test -cover ./...
 - [go-zero](https://github.com/zeromicro/go-zero) - 优秀的微服务框架
 - [MCP Go SDK](https://github.com/modelcontextprotocol/go-sdk) - Model Context Protocol Go 实现
 - [Claude](https://claude.ai) - AI 助手平台
+- [mcp-zero](https://github.com/zeromicro/mcp-zero/) - mcp-zero原项目
 
-## 联系方式
-
-如有问题或建议，请访问 [GitHub Issues](https://github.com/zeromicro/mcp-zero/issues)。
 
 ## 许可证
 
@@ -480,4 +478,4 @@ Copyright (c) 2025 go-zero team
 
 ---
 
-**开始使用 mcp-zero，让 AI 助力你的 go-zero 开发！** 🚀
+**开始使用 mcp-gozero，让 AI 助力你的 go-zero 开发！** 🚀

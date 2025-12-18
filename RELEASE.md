@@ -205,7 +205,7 @@ GitHub Actions will automatically:
 
 ```bash
 # Check GitHub releases page
-open https://github.com/zeromicro/mcp-zero/releases/tag/v${VERSION}
+open https://github.com/jinguoxing/mcp-gozero/releases/tag/v${VERSION}
 
 # Verify assets are present:
 # - mcp-zero-v1.2.0-linux-amd64.tar.gz
@@ -376,7 +376,7 @@ git push origin :refs/tags/v1.2.0
 ### Action Required
 Update to v1.2.1 immediately:
 ```bash
-go install github.com/zeromicro/mcp-zero@v1.2.1
+go install github.com/jinguoxing/mcp-gozero@v1.2.1
 ```
 
 ### Timeline
@@ -471,7 +471,7 @@ Copy this for each release:
 # mcp-zero v1.X.Y
 
 **Release Date**: YYYY-MM-DD
-**Download**: [GitHub Releases](https://github.com/zeromicro/mcp-zero/releases/tag/v1.X.Y)
+**Download**: [GitHub Releases](https://github.com/jinguoxing/mcp-gozero/releases/tag/v1.X.Y)
 
 ## 🎉 Highlights
 
@@ -482,7 +482,7 @@ Copy this for each release:
 ## 📦 Installation
 
 ```bash
-go install github.com/zeromicro/mcp-zero@v1.X.Y
+go install github.com/jinguoxing/mcp-gozero@v1.X.Y
 ```
 
 ## ✨ What's New
@@ -511,7 +511,7 @@ None in this release.
 No special steps required. Simply upgrade using:
 
 ```bash
-go install github.com/zeromicro/mcp-zero@v1.X.Y
+go install github.com/jinguoxing/mcp-gozero@v1.X.Y
 ```
 
 ## 🙏 Contributors
@@ -533,14 +533,7 @@ None at this time.
 
 ## ⬆️ What's Next
 
-See our [roadmap](https://github.com/zeromicro/mcp-zero/milestones) for upcoming features.
+See our [roadmap](https://github.com/jinguoxing/mcp-gozero/milestones) for upcoming features.
 ```
 
----
 
-## Contact
-
-**Release Manager**: [Name]
-**Repository**: https://github.com/zeromicro/mcp-zero
-**Issues**: https://github.com/zeromicro/mcp-zero/issues
-**Discussions**: https://github.com/zeromicro/mcp-zero/discussions

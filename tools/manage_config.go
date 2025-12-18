@@ -13,9 +13,9 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"gopkg.in/yaml.v3"
 
-	"github.com/zeromicro/mcp-zero/internal/responses"
-	"github.com/zeromicro/mcp-zero/internal/templates"
-	"github.com/zeromicro/mcp-zero/internal/validation"
+	"github.com/jinguoxing/mcp-gozero/internal/responses"
+	"github.com/jinguoxing/mcp-gozero/internal/templates"
+	"github.com/jinguoxing/mcp-gozero/internal/validation"
 )
 
 type ValidateConfigParams struct {

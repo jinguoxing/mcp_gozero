@@ -11,8 +11,8 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
-	"github.com/zeromicro/mcp-zero/internal/analyzer"
-	"github.com/zeromicro/mcp-zero/internal/responses"
+	"github.com/jinguoxing/mcp-gozero/internal/analyzer"
+	"github.com/jinguoxing/mcp-gozero/internal/responses"
 )
 
 type AnalyzeProjectParams struct {

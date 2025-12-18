@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/zeromicro/mcp-zero/internal/fixer"
+	"github.com/jinguoxing/mcp-gozero/internal/fixer"
 )
 
 func TestCleanupStyleConflicts(t *testing.T) {
